@@ -17,12 +17,12 @@ export const MainView = () => {
           title: doc.title,
           image: doc.ImageURL,
           director: {
-            name: doc.name,
-            birthdate: doc.birthdate
+            name: doc.director.name,
+            birthdate: doc.director.birthdate
           },
           genre: {
-            name: doc.genre,
-            description: doc.description
+            name: doc.genre.name,
+            description: doc.genre.description,
           },
           description: doc.description
         };
