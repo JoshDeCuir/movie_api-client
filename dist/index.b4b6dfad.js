@@ -28421,8 +28421,8 @@ const LoginView = ({ onLoggedIn })=>{
         //this prevents the default behavior of the form which is to reload the entire page
         event.preventDefault();
         const data = {
-            access: username,
-            secret: password
+            username: username,
+            password: password
         };
         fetch("https://movieapi-ba6f568c0d4b.herokuapp.com/login", {
             method: "POST",
@@ -28529,12 +28529,12 @@ const SignupView = ()=>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday
+            username: username,
+            password: password,
+            email: email,
+            birthday: birthday
         };
-        fetch("https://movieapi-ba6f568c0d4b.herokuapp.com/signup", {
+        fetch("https://movieapi-ba6f568c0d4b.herokuapp.com/users", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
