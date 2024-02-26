@@ -98,7 +98,7 @@ export const MainView = () => {
             ) : (
               <Col md={8}>
                 <MovieView 
-                  movies={selectedMovie}  
+                  movies={movies}  
                   />
               </Col>
               )}
