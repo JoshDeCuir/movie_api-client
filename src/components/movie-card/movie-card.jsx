@@ -7,32 +7,35 @@ import { useEffect, useState } from 'react';
 export const MovieCard = ({ movie, token, setUser, user }) => {
 
   const [isFavorite, setIsFavorite] = useState(
-    false
+    () => {
+      return user.favoriteMovies && user.favoriteMovies.includes(movie.id);
+    }
   );
 
-  useEffect(() => {
-    if(user.favoriteMovies && user.favoriteMovies.includes(movie.id)) {
-      setIsFavorite(true);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   setIsFavorite(user.favoriteMovies && user.favoriteMovies.includes(movie.id));
+  // }, [user]);
 
   const addFavoriteMovie = () => {
-    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.username}/movies/${movie.id}`,
-    { method: 'POST', headers: {Authorization: `Bearer ${token}`}}
+    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user._id}/addFavoriteMovie/${movie.id}`,
+    { method: 'POST', headers: { Authorization: `Bearer ${token}` } }
     )
       .then((response) => {
         if(response.ok){
-          return response.json();
+          return;
         } else {
+          alert('Failed to add favorite movie');
           console.log('Failed to add favorite movie');
         }
       })
-      .then((user) => {
+      .then(() => {
         if (user) {
-          alert('successfully added to favorites');
+          user.favoriteMovies.push(movie.id);
           localStorage.setItem('user', JSON.stringify(user));
           setUser(user);
           setIsFavorite(true);
+
+          alert('successfully added to favorites');
         }
       })
       .catch((error) => {
@@ -41,23 +44,25 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
   };
 
   const removeFavoriteMovie = () => {
-    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.username}/movies/${movie.id}`,
+    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user._id}/removeFavoriteMovie/${movie.id}`,
     {method: 'DELETE', headers:{Authorization: `Bearer ${token}`}}
     )
 
     .then((response) => {
       if(response.ok) {
-        return response.json();
+        return;
       } else {
         alert('Failed');
       }
     })
-    .then((user) => {
+    .then(() => {
       if(user) {
-        alert('Successfully deleted from favories');
+        user.favoriteMovies.delete(movie.id);
         localStorage.setItem('user', JSON.stringify(user));
         setUser(user);
         setIsFavorite(false);
+
+        alert('Successfully deleted from favories');
       }
     })
     .catch((error) => {

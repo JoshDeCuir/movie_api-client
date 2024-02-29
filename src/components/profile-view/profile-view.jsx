@@ -21,7 +21,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
       birthday: birthday
     }
 
-    fetch('https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.name}' , {
+    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.name}` , {
       method: 'PUT',
       body: JSON.stringify(data),
       headers: {
@@ -48,7 +48,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   }
 
   const handleDelete = () => {
-    fetch('https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.name}', {
+    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.name}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`
@@ -63,7 +63,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     })
   }
 
-retrun (
+return (
 
   <Container>
     <Row className='justify-content-md-center mx-3 my-4'>
@@ -96,7 +96,7 @@ retrun (
         <Form.Control
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
       </Form.Group >

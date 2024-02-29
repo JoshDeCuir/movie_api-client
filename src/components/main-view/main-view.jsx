@@ -96,6 +96,32 @@ export const MainView = () => {
           }
         />
         <Route
+          path='/profile'
+          element={
+            <>
+            {!user ? (
+              <Navigate to='/login' replace/>
+            ) : (
+              <Col md={5}>
+                <Row>
+                <ProfileView 
+                  user={user}
+                  token={token}
+                  setUser={setUser}
+                  movies={movies}
+                  onDelete={() =>{
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                  }}
+                  />
+                </Row>
+              </Col>
+            )}
+            </>
+          }
+        />
+        <Route
         path='/movies/:movieid'
         element={
           <>
@@ -128,6 +154,9 @@ export const MainView = () => {
                 <Col className='mb-3' key={movie.id} md={5}>
                 <MovieCard
                 movie={movie}
+                token={token}
+                user={user}
+                setUser={setUser}
                 />
                 </Col>
               ))}
