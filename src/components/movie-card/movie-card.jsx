@@ -45,7 +45,7 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
 
   const removeFavoriteMovie = () => {
     fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user._id}/removeFavoriteMovie/${movie.id}`,
-    {method: 'DELETE', headers:{Authorization: `Bearer ${token}`}}
+    {method: 'POST', headers:{Authorization: `Bearer ${token}`}}
     )
 
     .then((response) => {
@@ -57,7 +57,9 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
     })
     .then(() => {
       if(user) {
-        user.favoriteMovies.delete(movie.id);
+        const updatedFavList = user.favoriteMovies.filter(
+          (movieId) => movieId !== movie.id);
+          user.favoriteMovies = updatedFavList;
         localStorage.setItem('user', JSON.stringify(user));
         setUser(user);
         setIsFavorite(false);

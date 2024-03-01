@@ -4,7 +4,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 export const ProfileView = ({ user, token, movies, setUser }) => {
 
-  const [username, setUsername] = useState(user.name);
+  const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState(user.password);
   const [email,setEmail] = useState(user.email);
   const [birthday, setBirthday] = useState(user.birthday);
@@ -13,15 +13,15 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
 
   const handleUpdate = (event) => {
     event.preventDefault();
-
+    
     const data = {
-      name: username,
+      username: username,
       password: password,
       email: email,
       birthday: birthday
     }
-
-    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.name}` , {
+    
+    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.username}` , {
       method: 'PUT',
       body: JSON.stringify(data),
       headers: {
@@ -31,8 +31,9 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     }).then(async (response) => {
       console.log(response)
         if (response.ok) {
-          response.json();
-          alert('updated!')
+          var updatedUser = await response.json();
+          alert('updated!');
+          return updatedUser;
         } else {
           const e = await response.text()
           console.log(e)
@@ -48,7 +49,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
   }
 
   const handleDelete = () => {
-    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user.name}`, {
+    fetch(`https://movieapi-ba6f568c0d4b.herokuapp.com/users/${user._id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`
@@ -95,7 +96,7 @@ return (
         <Form.Label>Name:</Form.Label>
         <Form.Control
           type="text"
-          value={name}
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
