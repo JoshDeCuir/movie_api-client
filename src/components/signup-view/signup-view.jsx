@@ -50,7 +50,7 @@ export const SignupView = () => {
           placeholder='Please enter a username'
         />
         </Form.Group>
-      <Form.Group controlId='formUsername'>
+      <Form.Group controlId='formPassword'>
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type='password'
