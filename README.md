@@ -41,3 +41,6 @@ Make sure you have the following software installed on your system:
 - Delete Movie: Remove a movie from the database.
 - Add Review: Add a review for a specific movie.
 - View Reviews: Read reviews left by other users for a specific movie.
+
+### Link to site
+-https://josh-movie-client.netlify.app/signup
